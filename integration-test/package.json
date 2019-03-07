@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "tape -r esm test/*.js",
     "test:pre-release": "tape -r esm test/test-pre-release.js",
