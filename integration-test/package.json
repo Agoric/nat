@@ -11,7 +11,7 @@
     "create-test-file-no-nat-cjs": "rollup -c transform-tests/config/rollup.config.no-nat.js",
     "create-test-file-esm": "rollup -c transform-tests/config/rollup.config.esm.js",
     "create-test-file-cjs": "rollup -c transform-tests/config/rollup.config.cjs.js",
-    "create-test-file-browserifed-tape": "browserify transform-tests/output/test.no-nat.cjs.js > transform-tests/output/test.tape-no-nat.js --exclude @agoric/nat",
+    "create-test-file-browserified-tape": "browserify transform-tests/output/test.no-nat.cjs.js > transform-tests/output/test.tape-no-nat.js --exclude @agoric/nat",
     "build:webpack": "webpack -r esm --display-error-details --config scaffolding/webpack/webpack.config.js",
     "build:browserify": "browserify transform-tests/output/test.cjs.js > bundles/browserify.js",
     "build:rollup": "rollup -c scaffolding/rollup/rollup.config.test.js",
