@@ -103,6 +103,9 @@ jobs:
                 go get -u -d github.com/github/hub
                 cd /go/src/github.com/github/hub
                 go install github.com/github/hub
+      # - run: 
+      #     name: delete branch if exists
+      #     command: git branch -d npm-audit-fix
       - run: &new_branch
           name: create new branch
           command: git checkout -b npm-audit-fix
@@ -115,8 +118,8 @@ jobs:
               git add . 
               git commit -m "results of running `npm audit --fix`"
       - run: 
-          name: check var
-          command: echo $GITHUB_TOKEN
+          name: push changes to github branch
+          command: git push -u origin npm-audit-fix
       - run: &submit_pr
           name: Submit PR with results of `npm audit --fix`
           command: hub pull-request --no-edit -r katelynsills -l automated,npm-audit-fix
