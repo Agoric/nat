@@ -91,38 +91,11 @@ jobs:
       - *restore_cache
       - *install_npm_packages
       - *save_cache
-      - run: 
-          name: configure git
-          command: | 
-              git config user.email "kate+agoricbot@agoric.com"
-              git config user.name "AgoricBot"
-      - run: 
-          name: install hub
-          command: |
-                set -xe
-                go get -u -d github.com/github/hub
-                cd /go/src/github.com/github/hub
-                go install github.com/github/hub
-      # - run: 
-      #     name: delete branch if exists
-      #     command: git branch -d npm-audit-fix
-      - run: &new_branch
-          name: create new branch
-          command: git checkout -b npm-audit-fix
-      - run: &npm_audit_fix
-          name: npm audit --fix
-          command: npm audit --fix
-      - run: &commit_changes
-          name: commit changes
-          command: |
-              git add . 
-              git commit -m "results of running `npm audit --fix`"
-      - run: 
-          name: push changes to github branch
-          command: git push -u origin npm-audit-fix
-      - run: &submit_pr
-          name: Submit PR with results of `npm audit --fix`
-          command: hub pull-request --no-edit -r katelynsills -l automated,npm-audit-fix
+      - run:
+          name: Submit PR if npm audit --fix makes changes
+          command: ./scripts/npm-audit-fix.sh
+     
+
 
 
             
