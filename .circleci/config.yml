@@ -91,7 +91,7 @@ jobs:
               cd /go/src/github.com/github/hub
               go install github.com/github/hub
       - run:
-          name: Submit PR if npm audit --fix makes changes
+          name: Submit PR if npm audit fix makes changes
           command: ./scripts/npm-audit-fix.sh
      
 
