@@ -83,6 +83,9 @@ jobs:
       - image: circleci/golang:1.12.0-node
     steps: 
       - checkout
+      - run: 
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
       - run:
           name: install hub
           command: |
@@ -107,11 +110,21 @@ workflows:
   nightly:
      triggers:
        - schedule:
-           cron: "35 0 * * *"
+           cron: "0 0 * * *"
            filters:
              branches:
                only:
                  - master
      jobs:
        - post_release_test_integration
+
+  audit:
+     triggers:
+       - schedule:
+           cron: "54 23 * * *"
+           filters:
+             branches:
+               only:
+                 - npm-audit
+     jobs:
        - npm_audit_node_11
