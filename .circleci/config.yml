@@ -121,7 +121,7 @@ workflows:
   audit:
      triggers:
        - schedule:
-           cron: "54 23 * * *"
+           cron: "56 23 * * *"
            filters:
              branches:
                only:
