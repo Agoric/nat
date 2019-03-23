@@ -96,11 +96,7 @@ jobs:
       - run:
           name: Submit PR if npm audit fix makes changes
           command: ./scripts/npm-audit-fix.sh
-     
-
-
-
-            
+               
 workflows:
   version: 2
   test_all:
@@ -117,14 +113,4 @@ workflows:
                  - master
      jobs:
        - post_release_test_integration
-
-  audit:
-     triggers:
-       - schedule:
-           cron: "56 23 * * *"
-           filters:
-             branches:
-               only:
-                 - npm-audit
-     jobs:
        - npm_audit_node_11
