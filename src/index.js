@@ -26,7 +26,7 @@
  */
 
 function Nat(allegedNum) {
-  if (typeof allegedNum !== "bigint") {
+  if (typeof allegedNum !== 'bigint') {
     throw new TypeError(`${allegedNum} is not a BigInt`);
   }
 
