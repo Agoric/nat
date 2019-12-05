@@ -25,7 +25,7 @@
 
 For instance, in a deposit scenario, you would want to defend against someone "depositing" a negative value. Use `Nat` to validate the amount to be deposited before proceeding:
 
-```js
+```
 deposit: function(amount) {
   amount = Nat(amount);
   ...
@@ -34,12 +34,13 @@ deposit: function(amount) {
 
 Any addition or subtraction expressions dealing with monetary amounts should protected with `Nat()` to guard against overflow/underflow errors. Without this check, the two balances might both be safe, but their sum might be too large to represent accurately, causing precision errors in subsequent computation:
 
-```js
+```
 const myOldBal = 12n; // BigInt numeric literal
 const amount = 3n;
 Nat(myOldBal + amount);
 
 const withdrawalAmount = 2n;
+// balances cannot be negative
 const newBal = Nat(myOldBal - withdrawalAmount);
 ```
 
@@ -47,13 +48,14 @@ const newBal = Nat(myOldBal - withdrawalAmount);
 
 Array indexes can be wrapped with `Nat()`, to guard against the surprising string coercion of non-integral index values:
 
-```js
-const a = [2n, 4n, 6n];
+```
+const a = ['hello', 'my', 'name', 'is'];
 function add(index, value) {
   a[Nat(index)] = value;
 }
-add(3n, 8n); // works
-add(2.5, 7); // throws rather than add a key named "2.5"
+add(4n, 'alice'); // works
+add(2.5, 'bob'); // throws rather than add a key named "2.5"
+a // [ 'hello', 'my', 'name', 'is', 'alice' ]
 ```
 
 Nat can be used even in cases where it is not strictly necessary, for extra protection against human error.
