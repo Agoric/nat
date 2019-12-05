@@ -34,6 +34,7 @@ Before submitting a pull request, please:
   * to get signed tags, start with `npm config set sign-git-tag true`
 * `npm publish --access public`
 * `npm version prerelease --preid=dev`
+* `git push`
 * `git push --tags`
 
 ## Versioning
