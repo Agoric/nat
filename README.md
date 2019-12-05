@@ -4,16 +4,20 @@
 [![dev dependency status][dev-deps-svg]][dev-deps-url]
 [![License][license-image]][license-url]
 
-`Nat(value)` returns its argument if it represents a non-negative
-integer (i.e. a "natural number") that can be accurately represented
-as a JavaScript
-[`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt),
-a built-in object that can be used to represent arbitrarily large integers.
-If the argument is not a `BigInt` or the argument is negative, an exception is thrown. This makes
-it easy to use `Nat()` on incoming arguments, or as an assertion on generated
-values.
+`Nat(value)` returns its argument if it is a non-negative BigInt
+ instance. If the argument is negative, an ordinary `Number`, or some
+ other non-`BigInt` type, an exception is thrown. This makes it easy
+ to use `Nat()` on incoming arguments, or as an assertion on generated
+ values. You can think of `Nat()` as a type enforcement.
 
-You can think of `Nat()` as a type enforcement.
+[`BigInts`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
+ can accurately represent arbitrarily large integers without concern
+ of rounding or loss of precision. Two Nats added together will always
+ produce another Nat. To create a BigInt, you can append `n` to the
+ end of an integer literal (`3n`) or by call the function `BigInt()`.
+ Note that as of 12/5/2019, `BigInt` (and therefore `Nat`) is at Stage
+ 4 in the standardization process and is not yet supported in Edge,
+ Internet Explorer, or Safari.
 
 ## How to use
 
@@ -21,7 +25,7 @@ You can think of `Nat()` as a type enforcement.
 
 For instance, in a deposit scenario, you would want to defend against someone "depositing" a negative value. Use `Nat` to validate the amount to be deposited before proceeding:
 
-```
+```js
 deposit: function(amount) {
   amount = Nat(amount);
   ...
@@ -30,21 +34,25 @@ deposit: function(amount) {
 
 Any addition or subtraction expressions dealing with monetary amounts should protected with `Nat()` to guard against overflow/underflow errors. Without this check, the two balances might both be safe, but their sum might be too large to represent accurately, causing precision errors in subsequent computation:
 
-```
+```js
+const myOldBal = 12n; // BigInt numeric literal
+const amount = 3n;
 Nat(myOldBal + amount);
-const srcNewBal = Nat(srcOldBal - amount);
+
+const withdrawalAmount = 2n;
+const newBal = Nat(myOldBal - withdrawalAmount);
 ```
 
 ## Non-monetary usage
 
 Array indexes can be wrapped with `Nat()`, to guard against the surprising string coercion of non-integral index values:
 
-```
-const a = [2,4,6]
+```js
+const a = [2n, 4n, 6n];
 function add(index, value) {
   a[Nat(index)] = value;
 }
-add(3, 8); // works
+add(3n, 8n); // works
 add(2.5, 7); // throws rather than add a key named "2.5"
 ```
 
