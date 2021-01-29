@@ -3,7 +3,7 @@ import replace from '@rollup/plugin-replace';
 
 export default [
   {
-    input: '../test/test.js',
+    input: '../test/test-nat.js',
     output: {
       file: 'transform-tests/output/test.cjs.js',
       format: 'cjs',
@@ -12,7 +12,7 @@ export default [
     plugins: [
       replace({
         delimiters: ['', ''],
-        "import Nat from '../src/index';": "import Nat from '@agoric/nat';",
+        "import { isNat, Nat } from '../src/index';": "import { isNat, Nat } from '@agoric/nat';",
       }),
     ],
   },

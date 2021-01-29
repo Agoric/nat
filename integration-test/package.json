@@ -5,9 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "tape -r esm test/*.js",
-    "test:pre-release": "tape -r esm test/test-pre-release.js",
-    "test:post-release": "tape -r esm test/test-post-release.js",
+    "test": "ava test/**/test-*.js",
+    "test:pre-release": "ava test/test-pre-release.js",
+    "test:post-release": "ava test/test-post-release.js",
     "create-test-file-no-lib-cjs": "rollup -c transform-tests/config/rollup.config.no-lib.js",
     "create-test-file-esm": "rollup -c transform-tests/config/rollup.config.esm.js",
     "create-test-file-cjs": "rollup -c transform-tests/config/rollup.config.cjs.js",
@@ -20,7 +20,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@agoric/nat": "file:agoric-nat-3.0.2-dev.0.tgz",
+    "integration-test": "file:./latest-nat.tgz"
+  },
   "devDependencies": {
     "@rollup/plugin-replace": "^2.3.1",
     "browserify": "^16.5.0",
