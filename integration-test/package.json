@@ -5,9 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "ava test/**/test-*.js",
-    "test:pre-release": "ava test/test-pre-release.js",
-    "test:post-release": "ava test/test-post-release.js",
+    "test:pre-release": "tape -r esm test/test-pre-release.js",
+    "test:post-release": "tape -r esm test/test-post-release.js",
     "create-test-file-no-lib-cjs": "rollup -c transform-tests/config/rollup.config.no-lib.js",
     "create-test-file-esm": "rollup -c transform-tests/config/rollup.config.esm.js",
     "create-test-file-cjs": "rollup -c transform-tests/config/rollup.config.cjs.js",

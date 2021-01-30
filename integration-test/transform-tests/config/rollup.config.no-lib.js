@@ -4,12 +4,12 @@ import path from 'path';
 
 export default [
   {
-    input: '../test/test-nat.js',
+    input: 'test-nat-tape.js',
     output: {
       file: 'transform-tests/output/test.no-lib.cjs.js',
       format: 'cjs',
     },
-    external: [path.resolve(__dirname, '../src/index.js'), 'ava'],
+    external: [path.resolve(__dirname, '../src/index.js'), 'tape'],
     plugins: [
       replace({
         delimiters: ['', ''],
