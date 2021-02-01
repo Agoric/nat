@@ -12,7 +12,7 @@ export default [
     plugins: [
       replace({
         delimiters: ['', ''],
-        "import { isNat, Nat } from '../src/index';": "import { isNat, Nat } from '@agoric/nat';",
+        "'../src/index';": "'@agoric/nat';",
       }),
     ],
   },
